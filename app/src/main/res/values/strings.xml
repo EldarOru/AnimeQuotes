@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AnimeQuotes</string>
+    <string name="add">Add</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
+    <string name="favourites">Favourites</string>
+</resources>
