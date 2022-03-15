@@ -1,13 +1,10 @@
-package com.example.animequotes.presentation
+package com.example.animequotes.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.example.animequotes.databinding.QuoteItemBinding
-import com.example.animequotes.domain.Quote
+import com.example.animequotes.domain.entities.Quote
 
 class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder>() {
     var quotesList = listOf<Quote>()
@@ -15,6 +12,7 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
         field = value
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesListHolder {
         val quoteView = QuoteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QuotesListHolder(quoteView)

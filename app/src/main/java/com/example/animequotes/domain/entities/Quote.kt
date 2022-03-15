@@ -1,4 +1,4 @@
-package com.example.animequotes.domain
+package com.example.animequotes.domain.entities
 
 data class Quote(
     val anime : String,

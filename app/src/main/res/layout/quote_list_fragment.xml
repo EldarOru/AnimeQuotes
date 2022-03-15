@@ -4,29 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    tools:context=".presentation.activities.MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/quote_list_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_quotes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.fragment.app.FragmentContainerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/bottom_navigation_container"
-        android:layout_width="0dp"
+    <ProgressBar
+        android:id="@+id/loading_pb"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/quote_list_container"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </androidx.fragment.app.FragmentContainerView>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
