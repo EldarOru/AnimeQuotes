@@ -3,12 +3,11 @@ package com.example.animequotes.di
 import com.example.animequotes.data.data_sources.network.RetrofitClient
 import com.example.animequotes.data.repositories.QuotesAPIRepositoryImpl
 import com.example.animequotes.domain.repositories.QuotesAPIRepository
-import com.example.animequotes.domain.usecases.GetQuotesUseCase
+import com.example.animequotes.domain.usecases.network.GetQuotesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +22,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGetQuotesUseCase(repository: QuotesAPIRepository): GetQuotesUseCase{
+    fun provideGetQuotesUseCase(repository: QuotesAPIRepository): GetQuotesUseCase {
         return GetQuotesUseCase(repository)
     }
 

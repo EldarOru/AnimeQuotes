@@ -7,6 +7,8 @@ import com.example.animequotes.databinding.QuoteItemBinding
 import com.example.animequotes.domain.entities.Quote
 
 class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder>() {
+
+    var onClickListener: ((Quote) -> (Unit))? = null
     var quotesList = listOf<Quote>()
     set(value) {
         field = value
@@ -23,7 +25,9 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
         holder.quoteView.animeName.text = quote.anime
         holder.quoteView.characterName.text = quote.character
         holder.quoteView.quote.text = quote.quote
-
+        holder.quoteView.root.setOnClickListener {
+            onClickListener?.invoke(quote)
+        }
     }
 
     override fun getItemCount(): Int {

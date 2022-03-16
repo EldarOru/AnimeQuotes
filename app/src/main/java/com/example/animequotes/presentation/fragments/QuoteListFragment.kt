@@ -35,6 +35,7 @@ class QuoteListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
         setState()
+        setListeners()
     }
 
     override fun onDestroyView() {
@@ -49,6 +50,15 @@ class QuoteListFragment: Fragment() {
         recyclerView?.adapter = quotesListAdapter
     }
 
+    private fun setListeners(){
+        binding?.reloadButton?.setOnClickListener {
+            quoteListViewModel.getQuotes()
+        }
+        quotesListAdapter.onClickListener = {
+            quoteListViewModel.insertQuote(it)
+        }
+    }
+
     private fun setState(){
         lifecycleScope.launch {
             quoteListViewModel.quotesState.collect{
@@ -58,14 +68,13 @@ class QuoteListFragment: Fragment() {
                     }
                     Status.SUCCESS -> {
                         binding?.loadingPb?.visibility = View.GONE
-                        it.data?.let { it ->
-                            quotesListAdapter.quotesList = it.listOfQuotes
+                        it.data?.let { list ->
+                            quotesListAdapter.quotesList = list
                         }
                     }
                     else -> {
                         binding?.loadingPb?.visibility = View.GONE
                         Toast.makeText(requireContext(), it.msg.toString(), Toast.LENGTH_LONG).show()
-
                     }
                 }
             }
