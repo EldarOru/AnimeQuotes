@@ -21,13 +21,11 @@ object NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideGetQuotesUseCase(repository: QuotesAPIRepository): GetQuotesUseCase {
         return GetQuotesUseCase(repository)
     }
 
     @Provides
-    @Singleton
     fun provideRetrofitClient(): RetrofitClient{
         return RetrofitClient()
     }

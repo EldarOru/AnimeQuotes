@@ -1,6 +1,7 @@
 package com.example.animequotes.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,9 @@ class QuoteListFragment: Fragment() {
             quoteListViewModel.getQuotes()
         }
         quotesListAdapter.onClickListener = {
+            it.isFavourite = !it.isFavourite
             quoteListViewModel.insertQuote(it)
+            quotesListAdapter.quotesList = quoteListViewModel.quotesState.value.data!!
         }
     }
 

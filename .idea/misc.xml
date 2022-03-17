@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
         <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/bottom_navigation_fragment.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/favourite_quote_list_fragment.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/quote_item.xml" value="0.2056159420289855" />
-        <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/quote_list_fragment.xml" value="0.10885416666666667" />
+        <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/quote_item_fav.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/macdo/AndroidStudioProjects/AnimeQuotes/app/src/main/res/layout/quote_list_fragment.xml" value="0.136" />
       </map>
     </option>
   </component>

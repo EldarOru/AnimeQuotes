@@ -6,6 +6,8 @@ import androidx.room.Room
 import com.example.animequotes.data.data_sources.database.QuoteDatabase
 import com.example.animequotes.data.repositories.QuotesDatabaseRepositoryImpl
 import com.example.animequotes.domain.repositories.QuotesDatabaseRepository
+import com.example.animequotes.domain.usecases.database.DeleteQuoteByTextDatabaseUseCase
+import com.example.animequotes.domain.usecases.database.GetQuoteByTextDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.GetQuotesDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.InsertQuoteDatabaseUseCase
 import dagger.Module
@@ -26,7 +28,9 @@ object DatabaseModule {
             app,
             QuoteDatabase::class.java,
             QuoteDatabase.DATABASE_NAME
-        ).build()
+        //TODO CHANGE
+        ) .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -45,5 +49,13 @@ object DatabaseModule {
         return InsertQuoteDatabaseUseCase(rep)
     }
 
+    @Provides
+    fun provideGetQuoteByTextDatabaseUseCase(rep: QuotesDatabaseRepository): GetQuoteByTextDatabaseUseCase{
+        return GetQuoteByTextDatabaseUseCase(rep)
+    }
 
+    @Provides
+    fun provideDeleteQuoteByTextDatabaseUseCase(rep: QuotesDatabaseRepository): DeleteQuoteByTextDatabaseUseCase{
+        return DeleteQuoteByTextDatabaseUseCase(rep)
+    }
 }

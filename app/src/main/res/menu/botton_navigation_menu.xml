@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/main_button"
-        android:title="@string/search">
+        android:title="@string/search"
+        android:icon="@drawable/ic_baseline_home_24">
     </item>
 
     <item
         android:id="@+id/favourite_button"
-        android:title="@string/favourites">
+        android:title="@string/favourites"
+        android:icon="@drawable/ic_baseline_local_library_24">
     </item>
 </menu>

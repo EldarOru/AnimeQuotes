@@ -8,7 +8,7 @@ import retrofit2.http.DELETE
 @Dao
 interface QuoteDao {
 
-    @Query("SELECT * FROM quote")
+    @Query("SELECT * FROM quotes")
     fun getQuotes(): Flow<List<Quote>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,4 +16,13 @@ interface QuoteDao {
 
     @Delete
     suspend fun deleteQuote(quote: Quote)
+
+    @Query("SELECT * FROM quotes WHERE quote = :quoteText")
+    fun getQuoteByText(quoteText: String): Quote?
+
+    @Query("DELETE FROM quotes WHERE quote = :quoteText")
+    fun deleteQuoteByText(quoteText: String)
+
+    @Query("DELETE FROM quotes")
+    fun deleteAll()
 }

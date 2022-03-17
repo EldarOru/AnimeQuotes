@@ -10,4 +10,8 @@ interface QuotesDatabaseRepository {
     suspend fun insertQuote(quote: Quote)
 
     suspend fun deleteQuote(quote: Quote)
+
+    suspend fun deleteQuoteByText(text: String)
+
+    suspend fun getQuoteByText(text: String): Quote?
 }

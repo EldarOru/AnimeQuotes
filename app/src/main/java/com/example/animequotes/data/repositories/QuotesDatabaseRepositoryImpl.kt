@@ -20,4 +20,12 @@ class QuotesDatabaseRepositoryImpl @Inject constructor(
     override suspend fun deleteQuote(quote: Quote) {
         quoteDao.deleteQuote(quote)
     }
+
+    override suspend fun deleteQuoteByText(text: String) {
+        quoteDao.deleteQuoteByText(text)
+    }
+
+    override suspend fun getQuoteByText(text: String): Quote? {
+        return quoteDao.getQuoteByText(text)
+    }
 }
