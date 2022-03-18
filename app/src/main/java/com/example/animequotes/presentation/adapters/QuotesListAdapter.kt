@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.animequotes.R
 import com.example.animequotes.databinding.QuoteItemBinding
 import com.example.animequotes.databinding.QuoteItemFavBinding
 import com.example.animequotes.domain.entities.Quote
@@ -21,11 +20,11 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesListHolder {
         return when(viewType){
-                ENABLED_NUM -> QuotesListHolder.QuotesWithLikeViewHolder(
+                LIKED_QUOTE -> QuotesListHolder.QuotesWithLikeViewHolder(
                     QuoteItemFavBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false))
-                DISABLED_NUM -> QuotesListHolder.QuotesWithOutLikeViewHolder(
+                NOT_LIKED_QUOTE -> QuotesListHolder.QuotesWithOutLikeViewHolder(
                     QuoteItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false))
@@ -65,19 +64,19 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
         return quotesList.size
     }
 
-    //определяет enable у shopItem, на основании которого в onCreateViewHolder выбирается макет
     override fun getItemViewType(position: Int): Int {
         return if (quotesList[position].isFavourite){
-            ENABLED_NUM
-        }else DISABLED_NUM
+            LIKED_QUOTE
+        }else NOT_LIKED_QUOTE
     }
 
     companion object {
-        const val ENABLED_NUM = 1
-        const val DISABLED_NUM = 2
+        const val LIKED_QUOTE = 1
+        const val NOT_LIKED_QUOTE = 2
     }
 
     sealed class QuotesListHolder(quoteView: ViewBinding): RecyclerView.ViewHolder(quoteView.root){
+
         class QuotesWithLikeViewHolder(val binding: QuoteItemFavBinding) : QuotesListHolder(binding)
 
         class QuotesWithOutLikeViewHolder(val binding: QuoteItemBinding) : QuotesListHolder(binding)
