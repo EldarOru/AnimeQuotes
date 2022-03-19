@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.animequotes.databinding.QuoteItemBinding
-import com.example.animequotes.databinding.QuoteItemFavBinding
+import com.example.animequotes.databinding.QuoteItemLikeBinding
 import com.example.animequotes.domain.entities.Quote
 import java.lang.RuntimeException
 
@@ -21,7 +21,7 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesListHolder {
         return when(viewType){
                 LIKED_QUOTE -> QuotesListHolder.QuotesWithLikeViewHolder(
-                    QuoteItemFavBinding.inflate(
+                    QuoteItemLikeBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false))
                 NOT_LIKED_QUOTE -> QuotesListHolder.QuotesWithOutLikeViewHolder(
@@ -77,7 +77,7 @@ class QuotesListAdapter: RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder
 
     sealed class QuotesListHolder(quoteView: ViewBinding): RecyclerView.ViewHolder(quoteView.root){
 
-        class QuotesWithLikeViewHolder(val binding: QuoteItemFavBinding) : QuotesListHolder(binding)
+        class QuotesWithLikeViewHolder(val binding: QuoteItemLikeBinding) : QuotesListHolder(binding)
 
         class QuotesWithOutLikeViewHolder(val binding: QuoteItemBinding) : QuotesListHolder(binding)
     }

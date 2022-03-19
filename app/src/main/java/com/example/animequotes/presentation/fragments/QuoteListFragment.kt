@@ -12,16 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animequotes.data.data_sources.network.Status
 import com.example.animequotes.databinding.QuoteListFragmentBinding
 import com.example.animequotes.presentation.adapters.QuotesListAdapter
-import com.example.animequotes.presentation.viewmodels.QuoteListViewModel
+import com.example.animequotes.presentation.viewmodels.QuotesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.OffsetDateTime
 
 @AndroidEntryPoint
 class QuoteListFragment: Fragment() {
     private lateinit var quotesListAdapter: QuotesListAdapter
-    private val quoteListViewModel: QuoteListViewModel by viewModels()
+    private val quotesListViewModel: QuotesListViewModel by viewModels()
     private var binding: QuoteListFragmentBinding? = null
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,19 +54,19 @@ class QuoteListFragment: Fragment() {
 
     private fun setListeners(){
         binding?.reloadButton?.setOnClickListener {
-            quoteListViewModel.getQuotes()
+            quotesListViewModel.getQuotes()
             binding?.rvQuotes?.scrollToPosition(0)
         }
         quotesListAdapter.onClickListener = {
             it.isFavourite = !it.isFavourite
-            quoteListViewModel.insertQuote(it)
-            quotesListAdapter.quotesList = quoteListViewModel.quotesState.value.data ?: listOf()
+            quotesListViewModel.insertQuote(it)
+            quotesListAdapter.quotesList = quotesListViewModel.quotesState.value.data ?: listOf()
         }
     }
 
     private fun setState(){
         lifecycleScope.launch {
-            quoteListViewModel.quotesState.collect{
+            quotesListViewModel.quotesState.collect{
                 when(it.status){
                     Status.LOADING -> {
                         binding?.loadingPb?.visibility = View.VISIBLE

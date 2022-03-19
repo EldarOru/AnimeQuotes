@@ -1,16 +1,9 @@
 package com.example.animequotes.domain.entities
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import java.util.*
 
-@Entity(tableName = "quotes")
 data class Quote(
     val anime: String,
     val character: String,
     val quote: String,
-    @PrimaryKey(autoGenerate = true) val id: Int? = null
-){
-    @Ignore var isFavourite: Boolean = false
-}
+    var isFavourite: Boolean = false
+)

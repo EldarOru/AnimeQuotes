@@ -2,9 +2,9 @@ package com.example.animequotes.data.data_sources.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.animequotes.domain.entities.Quote
+import com.example.animequotes.domain.entities.QuoteDatabaseModel
 
-@Database(entities = [Quote::class], version = 1)
+@Database(entities = [QuoteDatabaseModel::class], version = 2)
 abstract class QuoteDatabase: RoomDatabase() {
     abstract fun quoteDao(): QuoteDao
 

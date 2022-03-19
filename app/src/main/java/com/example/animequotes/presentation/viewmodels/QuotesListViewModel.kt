@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.animequotes.data.data_sources.network.DataState
 import com.example.animequotes.data.data_sources.network.Status
 import com.example.animequotes.domain.entities.Quote
+import com.example.animequotes.domain.entities.QuoteDatabaseModel
 import com.example.animequotes.domain.usecases.database.DeleteQuoteByTextDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.GetQuoteByTextDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.InsertQuoteDatabaseUseCase
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuoteListViewModel @Inject constructor(
+class QuotesListViewModel @Inject constructor(
     private val getQuotesUseCase: GetQuotesUseCase,
     private val insertQuoteDatabaseUseCase: InsertQuoteDatabaseUseCase,
     private val getQuoteByTextDatabaseUseCase: GetQuoteByTextDatabaseUseCase,
@@ -41,11 +42,12 @@ class QuoteListViewModel @Inject constructor(
 
     fun insertQuote(quote: Quote){
         //TODO CHANGE
+        val quoteDatabase = QuoteDatabaseModel(quote.anime, quote.character, quote.quote)
         viewModelScope.launch(Dispatchers.IO) {
-            if (getQuoteByTextDatabaseUseCase.invoke(quote.quote) != null){
-                deleteQuoteByTextDatabaseUseCase.invoke(quote.quote)
-            }else{
-                insertQuoteDatabaseUseCase.invoke(quote)
+            if (getQuoteByTextDatabaseUseCase.invoke(quoteDatabase.quote) != null) {
+                deleteQuoteByTextDatabaseUseCase.invoke(quoteDatabase.quote)
+            } else {
+                insertQuoteDatabaseUseCase.invoke(quoteDatabase)
             }
         }
     }
