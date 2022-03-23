@@ -16,7 +16,6 @@ import com.example.animequotes.presentation.viewmodels.QuotesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.OffsetDateTime
 
 @AndroidEntryPoint
 class QuoteListFragment: Fragment() {
@@ -76,6 +75,9 @@ class QuoteListFragment: Fragment() {
                         it.data?.let { list ->
                             quotesListAdapter.quotesList = list
                         }
+                    }
+                    Status.DEFAULT -> {
+                        //TODO - Add interaction
                     }
                     else -> {
                         binding?.loadingPb?.visibility = View.GONE

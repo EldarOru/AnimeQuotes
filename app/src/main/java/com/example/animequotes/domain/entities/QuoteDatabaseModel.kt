@@ -5,7 +5,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "quotes")
+@Entity(tableName = "favourites_quotes")
 data class QuoteDatabaseModel(
     val anime: String,
     val character: String,

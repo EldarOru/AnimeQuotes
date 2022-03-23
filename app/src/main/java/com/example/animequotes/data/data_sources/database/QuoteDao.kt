@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface QuoteDao {
 
-    @Query("SELECT * FROM quotes")
+    @Query("SELECT * FROM favourites_quotes")
     fun getQuotes(): Flow<List<QuoteDatabaseModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,12 +16,12 @@ interface QuoteDao {
     @Delete
     suspend fun deleteQuote(quoteDatabaseModel: QuoteDatabaseModel)
 
-    @Query("SELECT * FROM quotes WHERE quote = :quoteText")
+    @Query("SELECT * FROM favourites_quotes WHERE quote = :quoteText")
     fun getQuoteByText(quoteText: String): QuoteDatabaseModel?
 
-    @Query("DELETE FROM quotes WHERE quote = :quoteText")
+    @Query("DELETE FROM favourites_quotes WHERE quote = :quoteText")
     fun deleteQuoteByText(quoteText: String)
 
-    @Query("DELETE FROM quotes")
+    @Query("DELETE FROM favourites_quotes")
     fun deleteAll()
 }

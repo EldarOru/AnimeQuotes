@@ -19,5 +19,6 @@ class DataState<out T>(val status: Status, val data: T?, val msg: String?) {
 enum class Status {
     SUCCESS,
     ERROR,
-    LOADING
+    LOADING,
+    DEFAULT
 }

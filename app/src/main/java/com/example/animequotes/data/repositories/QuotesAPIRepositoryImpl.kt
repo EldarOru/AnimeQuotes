@@ -1,6 +1,5 @@
 package com.example.animequotes.data.repositories
 
-import android.util.Log
 import com.example.animequotes.data.data_sources.network.DataState
 import com.example.animequotes.data.data_sources.network.RetrofitClient
 import com.example.animequotes.domain.entities.Quote
@@ -13,10 +12,6 @@ import javax.inject.Inject
 
 class QuotesAPIRepositoryImpl @Inject constructor(
     private val retrofitClient: RetrofitClient): QuotesAPIRepository {
-
-    init {
-        Log.d("Repo", "APIRepository was created")
-    }
 
     override suspend fun getQuotes(): Flow<DataState<List<Quote>>> {
         return flow <DataState<List<Quote>>> {

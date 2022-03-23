@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.animequotes.domain.entities.QuoteDatabaseModel
 
-@Database(entities = [QuoteDatabaseModel::class], version = 2)
+@Database(entities = [QuoteDatabaseModel::class], version = 1)
 abstract class QuoteDatabase: RoomDatabase() {
     abstract fun quoteDao(): QuoteDao
 

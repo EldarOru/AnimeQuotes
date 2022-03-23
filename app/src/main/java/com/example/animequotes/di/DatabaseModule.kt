@@ -28,8 +28,7 @@ object DatabaseModule {
             QuoteDatabase::class.java,
             QuoteDatabase.DATABASE_NAME
         //TODO CHANGE
-        ) .fallbackToDestructiveMigration()
-            .build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

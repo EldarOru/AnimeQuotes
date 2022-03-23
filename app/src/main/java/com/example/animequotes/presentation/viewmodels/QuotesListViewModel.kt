@@ -12,10 +12,7 @@ import com.example.animequotes.domain.usecases.database.InsertQuoteDatabaseUseCa
 import com.example.animequotes.domain.usecases.network.GetQuotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,20 +26,19 @@ class QuotesListViewModel @Inject constructor(
 
     private val _quotesState = MutableStateFlow(
         DataState(
-            Status.LOADING,
+            Status.DEFAULT,
             listOf<Quote>(), ""
         )
     )
     val quotesState: StateFlow<DataState<List<Quote>>>
     get() = _quotesState
 
-    init {
-        getQuotes()
-    }
-
     fun insertQuote(quote: Quote){
         //TODO CHANGE
-        val quoteDatabase = QuoteDatabaseModel(quote.anime, quote.character, quote.quote)
+        val quoteDatabase = QuoteDatabaseModel(
+            quote.anime,
+            quote.character,
+            quote.quote)
         viewModelScope.launch(Dispatchers.IO) {
             if (getQuoteByTextDatabaseUseCase.invoke(quoteDatabase.quote) != null) {
                 deleteQuoteByTextDatabaseUseCase.invoke(quoteDatabase.quote)
@@ -59,8 +55,7 @@ class QuotesListViewModel @Inject constructor(
             getQuotesUseCase.invoke()
                 .catch {
                     _quotesState.value = DataState.error(it.message.toString())
-                }
-                .collect {
+                }.collect {
                     _quotesState.value = DataState.success(it.data)
                 }
         }
