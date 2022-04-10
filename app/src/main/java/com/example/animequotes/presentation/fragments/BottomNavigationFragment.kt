@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.animequotes.R
-import com.example.animequotes.data.data_sources.network.RetrofitClient
-import com.example.animequotes.data.repositories.QuotesAPIRepositoryImpl
 import com.example.animequotes.databinding.BottomNavigationFragmentBinding
 import com.example.animequotes.presentation.activities.MainActivity
-import java.lang.RuntimeException
 
 class BottomNavigationFragment: Fragment() {
     private var binding: BottomNavigationFragmentBinding? = null
@@ -61,6 +58,7 @@ class BottomNavigationFragment: Fragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

@@ -1,13 +1,14 @@
 package com.example.animequotes.data.repositories
 
-import com.example.animequotes.data.data_sources.database.QuoteDao
+import com.example.animequotes.data.data_sources.database.favourite_database.QuoteDao
 import com.example.animequotes.domain.entities.QuoteDatabaseModel
 import com.example.animequotes.domain.repositories.QuotesDatabaseRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class QuotesDatabaseRepositoryImpl @Inject constructor(
-    private val quoteDao: QuoteDao): QuotesDatabaseRepository {
+    private val quoteDao: QuoteDao
+): QuotesDatabaseRepository {
 
     override fun getQuotes(): Flow<List<QuoteDatabaseModel>> {
         return quoteDao.getQuotes()

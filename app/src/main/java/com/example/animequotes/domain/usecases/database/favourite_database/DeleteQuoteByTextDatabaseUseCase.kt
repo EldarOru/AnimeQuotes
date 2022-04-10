@@ -1,4 +1,4 @@
-package com.example.animequotes.domain.usecases.database
+package com.example.animequotes.domain.usecases.database.favourite_database
 
 import com.example.animequotes.domain.repositories.QuotesDatabaseRepository
 import javax.inject.Inject

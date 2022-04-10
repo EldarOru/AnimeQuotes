@@ -1,5 +1,7 @@
 package com.example.animequotes.presentation.fragments
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animequotes.databinding.FavouriteQuoteListFragmentBinding
 import com.example.animequotes.presentation.adapters.FavouriteQuotesListAdapter
-import com.example.animequotes.presentation.adapters.QuotesListAdapter
 import com.example.animequotes.presentation.viewmodels.FavouriteQuotesListViewModel
-import com.example.animequotes.presentation.viewmodels.QuotesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -50,7 +50,7 @@ class FavouriteQuoteListFragment: Fragment() {
         recyclerView?.adapter = favouriteQuotesListAdapter
     }
 
-    fun setData(){
+    private fun setData(){
         lifecycleScope.launch {
             favouriteQuotesListViewModel.quotesState.collect {
                 it.let {

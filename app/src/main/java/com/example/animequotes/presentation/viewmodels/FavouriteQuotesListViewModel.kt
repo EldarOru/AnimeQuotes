@@ -3,7 +3,7 @@ package com.example.animequotes.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animequotes.domain.entities.QuoteDatabaseModel
-import com.example.animequotes.domain.usecases.database.GetQuotesDatabaseUseCase
+import com.example.animequotes.domain.usecases.database.favourite_database.GetQuotesDatabaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteQuotesListViewModel @Inject constructor(
-    private val getQuotesDatabaseUseCase: GetQuotesDatabaseUseCase): ViewModel() {
+    private val getQuotesDatabaseUseCase: GetQuotesDatabaseUseCase
+): ViewModel() {
 
     init {
         getFavouriteQuotes()

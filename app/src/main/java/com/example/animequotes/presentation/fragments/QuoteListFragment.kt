@@ -57,9 +57,8 @@ class QuoteListFragment: Fragment() {
             binding?.rvQuotes?.scrollToPosition(0)
         }
         quotesListAdapter.onClickListener = {
-            it.isFavourite = !it.isFavourite
             quotesListViewModel.insertQuote(it)
-            quotesListAdapter.quotesList = quotesListViewModel.quotesState.value.data ?: listOf()
+            //quotesListAdapter.quotesList = quotesListViewModel.quotesState.value.data ?: listOf()
         }
     }
 

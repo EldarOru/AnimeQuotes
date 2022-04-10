@@ -1,6 +1,7 @@
 package com.example.animequotes.data.data_sources.network
 
 class DataState<out T>(val status: Status, val data: T?, val msg: String?) {
+
     companion object {
         fun <T> success(data: T?): DataState<T> {
             return DataState(Status.SUCCESS, data, null)

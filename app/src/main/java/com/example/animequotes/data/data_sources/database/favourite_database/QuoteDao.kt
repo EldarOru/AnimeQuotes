@@ -1,4 +1,4 @@
-package com.example.animequotes.data.data_sources.database
+package com.example.animequotes.data.data_sources.database.favourite_database
 
 import androidx.room.*
 import com.example.animequotes.domain.entities.QuoteDatabaseModel
