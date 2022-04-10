@@ -11,7 +11,6 @@ import com.example.animequotes.domain.usecases.database.cached_database.GetCache
 import com.example.animequotes.domain.usecases.database.cached_database.InsertAllQuotesUseCase
 import com.example.animequotes.domain.usecases.database.cached_database.UpdateQuoteUseCase
 import com.example.animequotes.domain.usecases.database.favourite_database.DeleteQuoteByTextDatabaseUseCase
-import com.example.animequotes.domain.usecases.database.favourite_database.GetQuoteByTextDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.favourite_database.InsertQuoteDatabaseUseCase
 import com.example.animequotes.domain.usecases.network.GetQuotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +26,6 @@ import javax.inject.Inject
 class QuotesListViewModel @Inject constructor(
     private val getQuotesUseCase: GetQuotesUseCase,
     private val insertQuoteDatabaseUseCase: InsertQuoteDatabaseUseCase,
-    private val getQuoteByTextDatabaseUseCase: GetQuoteByTextDatabaseUseCase,
     private val deleteQuoteByTextDatabaseUseCase: DeleteQuoteByTextDatabaseUseCase,
     private val getCachedQuotesUseCase: GetCachedQuotesUseCase,
     private val deleteAllQuotesUseCase: DeleteAllQuotesUseCase,
@@ -77,18 +75,19 @@ class QuotesListViewModel @Inject constructor(
     fun getQuotes() {
         _quotesState.value = DataState.loading()
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getQuotesUseCase.invoke()
                 .catch {
                     _quotesState.value = DataState.error(it.message.toString())
                 }.collect {
+                    deleteAllQuotesUseCase.invoke()
                     _quotesState.value = DataState.success(it.data)
                     it.data?.let { it1 -> insetAllQuotesUseCase.invoke(it1) }
                 }
         }
     }
 
-    private fun getCachedQuotes(){
+    private fun getCachedQuotes() {
         viewModelScope.launch(Dispatchers.IO) {
             getCachedQuotesUseCase.invoke()
                 .collect {
