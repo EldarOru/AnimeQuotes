@@ -54,7 +54,6 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
         }
         quotesListAdapter.onClickListener = {
             quotesListViewModel.insertQuote(it)
-            //quotesListAdapter.quotesList = quotesListViewModel.quotesState.value.data ?: listOf()
         }
     }
 
