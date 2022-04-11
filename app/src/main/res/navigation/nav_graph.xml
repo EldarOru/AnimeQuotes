@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/quoteListFragment">
+
+    <fragment
+        android:id="@+id/quoteListFragment"
+        android:name="com.example.animequotes.presentation.fragments.QuoteListFragment"
+        android:label="QuoteListFragment" />
+    <fragment
+        android:id="@+id/favouriteQuoteListFragment"
+        android:name="com.example.animequotes.presentation.fragments.FavouriteQuoteListFragment"
+        android:label="FavouriteQuoteListFragment" />
+</navigation>

@@ -1,60 +1,56 @@
 package com.example.animequotes.presentation.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.animequotes.R
 import com.example.animequotes.data.data_sources.network.Status
-import com.example.animequotes.databinding.QuoteListFragmentBinding
 import com.example.animequotes.presentation.adapters.QuotesListAdapter
 import com.example.animequotes.presentation.viewmodels.QuotesListViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class QuoteListFragment: Fragment() {
+class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
     private lateinit var quotesListAdapter: QuotesListAdapter
     private val quotesListViewModel: QuotesListViewModel by viewModels()
-    private var binding: QuoteListFragmentBinding? = null
-    
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = QuoteListFragmentBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+    private var floatingActionButton: FloatingActionButton? = null
+    private var recyclerView: RecyclerView? = null
+    private var progressBar: ProgressBar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setViews(view)
         setRecyclerView()
         setState()
         setListeners()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+    private fun setViews(view: View){
+        floatingActionButton = view.findViewById(R.id.reload_button)
+        recyclerView = view.findViewById(R.id.rv_quotes)
+        progressBar = view.findViewById(R.id.loading_pb)
     }
 
     private fun setRecyclerView(){
-        val recyclerView = binding?.rvQuotes
+        val recyclerView = recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         quotesListAdapter = QuotesListAdapter()
         recyclerView?.adapter = quotesListAdapter
     }
 
     private fun setListeners(){
-        binding?.reloadButton?.setOnClickListener {
+        floatingActionButton?.setOnClickListener {
             quotesListViewModel.getQuotes()
-            binding?.rvQuotes?.scrollToPosition(0)
+            recyclerView?.scrollToPosition(0)
         }
         quotesListAdapter.onClickListener = {
             quotesListViewModel.insertQuote(it)
@@ -67,10 +63,10 @@ class QuoteListFragment: Fragment() {
             quotesListViewModel.quotesState.collect{
                 when(it.status){
                     Status.LOADING -> {
-                        binding?.loadingPb?.visibility = View.VISIBLE
+                        progressBar?.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
-                        binding?.loadingPb?.visibility = View.GONE
+                        progressBar?.visibility = View.GONE
                         it.data?.let { list ->
                             quotesListAdapter.quotesList = list
                         }
@@ -79,7 +75,7 @@ class QuoteListFragment: Fragment() {
                         //TODO - Add interaction
                     }
                     else -> {
-                        binding?.loadingPb?.visibility = View.GONE
+                        progressBar?.visibility = View.GONE
                         Toast.makeText(requireContext(), it.msg.toString(), Toast.LENGTH_LONG).show()
                     }
                 }

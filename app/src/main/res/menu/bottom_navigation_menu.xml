@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/main_button"
+        android:id="@+id/quoteListFragment"
         android:title="@string/search"
         android:icon="@drawable/ic_baseline_home_24">
     </item>
 
     <item
-        android:id="@+id/favourite_button"
+        android:id="@+id/favouriteQuoteListFragment"
         android:title="@string/favourites"
         android:icon="@drawable/ic_baseline_local_library_24">
     </item>
