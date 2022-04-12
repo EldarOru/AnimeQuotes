@@ -55,20 +55,7 @@ class QuotesListViewModel @Inject constructor(
             quote.quote
         )
         viewModelScope.launch(Dispatchers.IO) {
-            if (quote.isFavourite) {
-                deleteQuoteByTextDatabaseUseCase.invoke(quoteDatabase.quote)
-            } else {
-                insertQuoteDatabaseUseCase.invoke(quoteDatabase)
-            }
-            updateQuoteUseCase.invoke(
-                Quote(
-                    quote.anime,
-                    quote.character,
-                    quote.quote,
-                    !quote.isFavourite,
-                    id = quote.id
-                )
-            )
+            insertQuoteDatabaseUseCase.invoke(quoteDatabase)
         }
     }
 

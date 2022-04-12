@@ -43,7 +43,7 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
     private fun setRecyclerView(){
         val recyclerView = recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        quotesListAdapter = QuotesListAdapter()
+        quotesListAdapter = QuotesListAdapter(requireActivity().applicationContext)
         recyclerView?.adapter = quotesListAdapter
     }
 
