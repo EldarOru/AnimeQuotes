@@ -4,7 +4,8 @@ import com.example.animequotes.data.data_sources.network.DataState
 import com.example.animequotes.domain.entities.Quote
 import kotlinx.coroutines.flow.Flow
 
-interface QuotesAPIRepository {
+interface QuotesMainRepository {
 
-    suspend fun getQuotes(): Flow<DataState<List<Quote>>>
+    //TODO CHANGE
+    suspend fun getQuotes(fetchFromRemote: Boolean): Flow<DataState<List<Quote>>>
 }

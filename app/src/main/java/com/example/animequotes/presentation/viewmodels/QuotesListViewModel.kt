@@ -1,16 +1,12 @@
 package com.example.animequotes.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animequotes.data.data_sources.network.DataState
 import com.example.animequotes.data.data_sources.network.Status
 import com.example.animequotes.domain.entities.Quote
 import com.example.animequotes.domain.entities.QuoteDatabaseModel
-import com.example.animequotes.domain.usecases.database.cached_database.DeleteAllQuotesUseCase
-import com.example.animequotes.domain.usecases.database.cached_database.GetCachedQuotesUseCase
-import com.example.animequotes.domain.usecases.database.cached_database.InsertAllQuotesUseCase
-import com.example.animequotes.domain.usecases.database.cached_database.UpdateQuoteUseCase
-import com.example.animequotes.domain.usecases.database.favourite_database.DeleteQuoteByTextDatabaseUseCase
 import com.example.animequotes.domain.usecases.database.favourite_database.InsertQuoteDatabaseUseCase
 import com.example.animequotes.domain.usecases.network.GetQuotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,17 +20,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuotesListViewModel @Inject constructor(
+    //TODO CHANGE USE CASES
     private val getQuotesUseCase: GetQuotesUseCase,
-    private val insertQuoteDatabaseUseCase: InsertQuoteDatabaseUseCase,
-    private val deleteQuoteByTextDatabaseUseCase: DeleteQuoteByTextDatabaseUseCase,
-    private val getCachedQuotesUseCase: GetCachedQuotesUseCase,
-    private val deleteAllQuotesUseCase: DeleteAllQuotesUseCase,
-    private val insetAllQuotesUseCase: InsertAllQuotesUseCase,
-    private val updateQuoteUseCase: UpdateQuoteUseCase
+    private val insertQuoteDatabaseUseCase: InsertQuoteDatabaseUseCase
 ) : ViewModel() {
 
     init {
-        getCachedQuotes()
+        getQuotes()
     }
 
     private val _quotesState = MutableStateFlow(
@@ -59,26 +51,11 @@ class QuotesListViewModel @Inject constructor(
         }
     }
 
-    fun getQuotes() {
-        _quotesState.value = DataState.loading()
-
+    fun getQuotes(fetchFromRemote: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            getQuotesUseCase.invoke()
-                .catch {
-                    _quotesState.value = DataState.error(it.message.toString())
-                }.collect {
-                    deleteAllQuotesUseCase.invoke()
-                    _quotesState.value = DataState.success(it.data)
-                    it.data?.let { it1 -> insetAllQuotesUseCase.invoke(it1) }
-                }
-        }
-    }
-
-    private fun getCachedQuotes() {
-        viewModelScope.launch(Dispatchers.IO) {
-            getCachedQuotesUseCase.invoke()
+            getQuotesUseCase.invoke(fetchFromRemote)
                 .collect {
-                    _quotesState.value = DataState.success(it)
+                    _quotesState.value = it
                 }
         }
     }

@@ -32,6 +32,8 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
         setRecyclerView()
         setState()
         setListeners()
+        //TODO DELETE
+        quotesListViewModel.getQuotes()
     }
 
     private fun setViews(view: View){
@@ -49,7 +51,7 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
 
     private fun setListeners(){
         floatingActionButton?.setOnClickListener {
-            quotesListViewModel.getQuotes()
+            quotesListViewModel.getQuotes(fetchFromRemote = true)
             recyclerView?.scrollToPosition(0)
         }
         quotesListAdapter.onClickListener = {
@@ -71,7 +73,7 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
                         }
                     }
                     Status.DEFAULT -> {
-                        //TODO - Add interaction
+                        Toast.makeText(requireContext(), "kek", Toast.LENGTH_LONG).show()
                     }
                     else -> {
                         progressBar?.visibility = View.GONE

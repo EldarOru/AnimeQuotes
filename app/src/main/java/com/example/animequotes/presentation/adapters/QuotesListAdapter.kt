@@ -5,13 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.example.animequotes.R
 import com.example.animequotes.databinding.QuoteItemBinding
-import com.example.animequotes.databinding.QuoteItemLikeBinding
 import com.example.animequotes.domain.entities.Quote
-import java.lang.RuntimeException
-import kotlin.coroutines.coroutineContext
 
 class QuotesListAdapter(val context: Context): RecyclerView.Adapter<QuotesListAdapter.QuotesListHolder>() {
 
@@ -41,10 +37,10 @@ class QuotesListAdapter(val context: Context): RecyclerView.Adapter<QuotesListAd
                 it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.rotation))
             }
             quoteView.infoIcon.setOnClickListener {
+                onTipClickListener?.invoke(quote)
             }
         }
     }
-
 
     override fun getItemCount(): Int {
         return quotesList.size
