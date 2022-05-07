@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animequotes.R
-import com.example.animequotes.data.data_sources.network.Status
+import com.example.animequotes.utils.Status
 import com.example.animequotes.presentation.adapters.QuotesListAdapter
 import com.example.animequotes.presentation.viewmodels.QuotesListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,8 +32,7 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
         setRecyclerView()
         setState()
         setListeners()
-        //TODO DELETE
-        quotesListViewModel.getQuotes()
+        setRep()
     }
 
     private fun setViews(view: View){
@@ -57,6 +56,10 @@ class QuoteListFragment: Fragment(R.layout.quote_list_fragment) {
         quotesListAdapter.onClickListener = {
             quotesListViewModel.insertQuote(it)
         }
+    }
+
+    private fun setRep(){
+        quotesListViewModel.getQuotes()
     }
 
     private fun setState(){
